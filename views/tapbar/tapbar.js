@@ -13,7 +13,12 @@ class Facemash extends React.Component {
   constructor(...props) {
     super(...props);
 
-    this.buttons = ['faceMash', 'messages', 'settings'];
+    this.buttons = [
+      'faceMash',
+      'messages',
+      'settings'
+    ];
+
     this.state = {
       selectedTab: this.buttons[0]
     };

@@ -1,5 +1,6 @@
 let React = require('react-native');
 let Styles = require('../../styles/tabs/facemash');
+let Person = require('../persons/person');
 
 let {
   ActivityIndicatorIOS,
@@ -24,7 +25,9 @@ class FacemashTab extends React.Component {
   }
 
   renderContents() {
-    if (!this.state.list.length) {
+    let { list, currentIndex } = this.state;
+
+    if (!list.length) {
       return (
         <View style={ Styles.loading }>
           <Text style={ Styles.loadingText }>Loading</Text>
@@ -33,9 +36,16 @@ class FacemashTab extends React.Component {
       )
     }
     else {
+      let record = list[currentIndex];
+      let people = record.users.map(function(person) {
+        return (
+          <Person person={ person } index={ currentIndex } />
+        );
+      });
+
       return (
-        <View style={ Styles.content }>
-          <Text>Loaded</Text>
+        <View>
+          { people }
         </View>
       )
     }
