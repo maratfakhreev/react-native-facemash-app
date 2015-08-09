@@ -1,14 +1,16 @@
 let React = require('react-native');
 let Styles = require('../../styles/tabs/facemash');
+let Base = require('../base/base');
 let Person = require('../persons/person');
 
 let {
   ActivityIndicatorIOS,
+  ScrollView,
   Text,
   View
 } = React;
 
-class FacemashTab extends React.Component {
+class FacemashTab extends Base {
   constructor(...props) {
     super(...props);
 
@@ -16,12 +18,18 @@ class FacemashTab extends React.Component {
       list: [],
       currentIndex: 0
     };
+
+    this.bindMethods('onPressPerson');
   }
 
   componentWillMount() {
     fetch('http://localhost:8882/rest/mash')
       .then(res => res.json())
       .then(res => this.setState({ list: res }));
+  }
+
+  onPressPerson() {
+    this.setState({ currentIndex: this.state.currentIndex + 1 });
   }
 
   renderContents() {
@@ -37,9 +45,9 @@ class FacemashTab extends React.Component {
     }
     else {
       let record = list[currentIndex];
-      let people = record.users.map(function(person) {
+      let people = record.users.map((person) => {
         return (
-          <Person person={ person } index={ currentIndex } />
+          <Person person={ person } onPressPerson={ this.onPressPerson } />
         );
       });
 
@@ -57,7 +65,12 @@ class FacemashTab extends React.Component {
         <View style={ Styles.header }>
           <Text style={ Styles.headerText }>FaceMash</Text>
         </View>
-        { this.renderContents() }
+        <ScrollView
+          contentContainerStyle={ Styles.contentContainer }
+          contentInset={ { top: -20 } }
+        >
+          { this.renderContents() }
+        </ScrollView>
       </View>
     );
   }

@@ -1,5 +1,6 @@
 let React = require('react-native');
 let Styles = require('../../styles/tapbar/tapbar');
+let Base = require('../base/base');
 let FaceMashTab = require('../tabs/facemash');
 
 let {
@@ -9,7 +10,7 @@ let {
   StatusBarIOS
 } = React;
 
-class Facemash extends React.Component {
+class Facemash extends Base {
   constructor(...props) {
     super(...props);
 
