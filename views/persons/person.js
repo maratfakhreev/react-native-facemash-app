@@ -15,7 +15,10 @@ class Person extends Base {
 
     return (
       <View style={ Styles.person }>
-        <Image style={ Styles.personImage } source={ { uri: person.picture } } />
+        <Image
+          style={ Styles.personImage }
+          source={ { uri: person.picture } }
+        />
         <TouchableHighlight onPress={ this.props.onPressPerson }>
           <View style={ Styles.personInfo }>
             <Text style={ Styles.personName }>

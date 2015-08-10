@@ -20,13 +20,14 @@ module.exports = StyleSheet.create({
     marginBottom: 20
   },
   header: {
-    height: 50,
+    height: 65,
     backgroundColor: '#ff0000',
     paddingTop: 20,
-    alignItems: 'center'
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   headerText: {
     color: '#fff',
-    fontSize: 18,
+    fontSize: 18
   }
 });

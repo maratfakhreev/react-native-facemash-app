@@ -2,9 +2,9 @@ let React = require('react-native');
 let Styles = require('../../styles/tabs/facemash');
 let Base = require('../base/base');
 let Person = require('../persons/person');
+let Loading = require('../ui/loading');
 
 let {
-  ActivityIndicatorIOS,
   ScrollView,
   Text,
   View
@@ -37,13 +37,11 @@ class FacemashTab extends Base {
 
     if (!list.length) {
       return (
-        <View style={ Styles.loading }>
-          <Text style={ Styles.loadingText }>Loading</Text>
-          <ActivityIndicatorIOS />
-        </View>
+        <Loading />
       )
     }
-    else {
+
+    {
       let record = list[currentIndex];
       let people = record.users.map((person) => {
         return (
@@ -52,9 +50,7 @@ class FacemashTab extends Base {
       });
 
       return (
-        <View>
-          { people }
-        </View>
+        <View>{ people }</View>
       )
     }
   }

@@ -2,6 +2,8 @@ let React = require('react-native');
 let Styles = require('../../styles/tapbar/tapbar');
 let Base = require('../base/base');
 let FaceMashTab = require('../tabs/facemash');
+let MessagesTab = require('../tabs/messages');
+let SettingsTab = require('../tabs/settings');
 
 let {
   Text,
@@ -49,18 +51,14 @@ class Facemash extends Base {
           icon={ require('image!settings') }
           onPress={ () => this.changeTab(this.buttons[1]) }
           selected={ this.isSelectedTab(this.buttons[1]) }>
-          <View style={ Styles.pageView }>
-            <Text>Messages</Text>
-          </View>
+          <MessagesTab />
         </TabBarIOS.Item>
         <TabBarIOS.Item
           title='Settings'
           icon={ require('image!settings') }
           onPress={ () => this.changeTab(this.buttons[2]) }
           selected={ this.isSelectedTab(this.buttons[2]) }>
-          <View style={ Styles.pageView }>
-            <Text>Settings</Text>
-          </View>
+          <SettingsTab />
         </TabBarIOS.Item>
       </TabBarIOS>
     );
