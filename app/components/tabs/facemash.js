@@ -26,15 +26,12 @@ class FacemashTab extends Base {
   componentWillMount() {
     fetch('http://localhost:8882/rest/mash')
       .then(res => res.json())
-      .then(res => {
-        this.setState({ list: res });
-        this.listLength = res.length;
-      });
+      .then(res => this.setState({ list: res }));
   }
 
   onPressUser() {
-    if (this.state.currentIndex !== this.listLength - 1) {
-      this.setState({ currentIndex: this.state.currentIndex + 1 });
+    if (this.state.currentIndex !== this.state.list.length - 1) {
+      this.setState({ currentIndex: ++this.state.currentIndex });
     }
   }
 

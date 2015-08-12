@@ -1,4 +1,6 @@
 let React = require('react-native');
+let Emitter = require('../../emitters/emitter');
+let Dispatcher = require('../../dispatchers/dispatcher');
 let Styles = require('../../styles/users/user');
 let Base = require('../base/base');
 
@@ -10,7 +12,34 @@ let {
 } = React;
 
 class User extends Base {
+  constructor(...props) {
+    super(...props);
+
+    this.state = {
+      'hasUsername': false
+    };
+  }
+
+  componentDidMount() {
+    Emitter.on('username:get', (value) => {
+      if (this.state.hasUsername !== value) {
+        this.setState({ 'hasUsername': value });
+      }
+    });
+  }
+
+  userPresenter(user) {
+    let username = user.firstName;
+
+    if (this.state.hasUsername === true) {
+      username += ` ${user.lastName}`;
+    }
+
+    return username;
+  }
+
   render() {
+    Dispatcher.dispatch({ type: 'username:get' });
     let user = this.props.user;
 
     return (
@@ -22,8 +51,7 @@ class User extends Base {
         <TouchableHighlight onPress={ this.props.onPressUser }>
           <View style={ Styles.userInfo }>
             <Text style={ Styles.userName }>
-              { user.firstName } { user.lastName }
-              { this.props.index }
+              { this.userPresenter(user) }
             </Text>
             <View style={ Styles.userScore }>
               <Text style={ Styles.userScoreHeader }>
