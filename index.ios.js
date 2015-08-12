@@ -1,5 +1,5 @@
 let React = require('react-native');
-let Facemash = require('./views/tapbar/tapbar');
+let Facemash = require('./app/components/tapbar/tapbar');
 
 let { AppRegistry } = React;
 
