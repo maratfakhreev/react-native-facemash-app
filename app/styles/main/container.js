@@ -5,6 +5,11 @@ module.exports = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff'
   },
+  containerSecond: {
+    flex: 1,
+    backgroundColor: '#fff',
+    paddingTop: 70
+  },
   containerWithPadding: {
     flex: 1,
     backgroundColor: '#fff',

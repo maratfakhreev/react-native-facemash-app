@@ -1,7 +1,7 @@
 let React = require('react-native');
-let Emitter = require('../../emitters/emitter');
-let Dispatcher = require('../../dispatchers/dispatcher');
-let Styles = require('../../styles/main/container');
+let SettingsModel = require('../../models/settings');
+let StylesContainer = require('../../styles/main/container');
+let StylesSettings = require('../../styles/settings/settings');
 let Base = require('../base/base');
 
 let {
@@ -15,38 +15,55 @@ class Settings extends Base {
     super(...props);
 
     this.state = {
-      switchValue: false
+      hasUsername: false,
+      hasScores: false
     };
 
-    this.bindMethods('onSave');
+    this.bindMethods('onChangeUsernameSetting', 'onChangeScoresSetting');
   }
 
-  componentDidMount() {
-    Emitter.on('username:get', (value) => {
-      if (this.state.switchValue !== value) {
-        this.setState({ 'switchValue': value });
+  settings() {
+    SettingsModel.getUsername().then((value) => {
+      if (this.state.hasUsername !== value) {
+        this.setState({ 'hasUsername': value });
+      }
+    });
+    SettingsModel.getScores().then((value) => {
+      if (this.state.hasScores !== value) {
+        this.setState({ 'hasScores': value });
       }
     });
   }
 
-  onSave(value) {
-    this.setState({ switchValue: value });
-    Dispatcher.dispatch({
-      type: 'username:update',
-      content: { value }
-    });
+  onChangeUsernameSetting(value) {
+    this.setState({ hasUsername: value });
+    SettingsModel.updateUsername(value);
+  }
+
+  onChangeScoresSetting(value) {
+    this.setState({ hasScores: value });
+    SettingsModel.updateScores(value);
   }
 
   render() {
-    Dispatcher.dispatch({ type: 'username:get' });
+    this.settings();
 
     return (
-      <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-        <View style={ Styles.containerWithPadding }>
-          <Text>Hide user's last name</Text>
+      <View style={ StylesContainer.containerSecond }>
+        <View style={ StylesSettings.row }>
+          <Text style={ StylesSettings.label }>Show user's fullname</Text>
           <SwitchIOS
-            onValueChange={ this.onSave }
-            value={ this.state.switchValue }
+            style={ StylesSettings.switcher }
+            onValueChange={ this.onChangeUsernameSetting }
+            value={ this.state.hasUsername }
+          />
+        </View>
+        <View style={ StylesSettings.row }>
+          <Text style={ StylesSettings.label }>Show user's scores</Text>
+          <SwitchIOS
+            style={ StylesSettings.switcher }
+            onValueChange={ this.onChangeScoresSetting }
+            value={ this.state.hasScores }
           />
         </View>
       </View>

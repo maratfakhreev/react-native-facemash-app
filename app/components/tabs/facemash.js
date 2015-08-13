@@ -1,6 +1,7 @@
 let React = require('react-native');
 let StylesContainer = require('../../styles/main/container');
 let StylesFacemash = require('../../styles/tabs/facemash');
+let Mashes = require('../../models/mashes');
 let Base = require('../base/base');
 let User = require('../users/user');
 let Loading = require('../ui/loading');
@@ -24,9 +25,8 @@ class FacemashTab extends Base {
   }
 
   componentWillMount() {
-    fetch('http://localhost:8882/rest/mash')
-      .then(res => res.json())
-      .then(res => this.setState({ list: res }));
+    let mashes = new Mashes();
+    mashes.fetch().then(list => this.setState({ list }));
   }
 
   onPressUser() {

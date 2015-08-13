@@ -17,7 +17,8 @@ module.exports = StyleSheet.create({
     borderBottomWidth: 1,
     padding: 5,
     alignItems: 'center',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    height: 40
   },
   userImage: {
     flex: 1,
@@ -25,11 +26,16 @@ module.exports = StyleSheet.create({
   },
   userName: {
     fontSize: 18,
-    flex: 1,
-    paddingLeft: 5
+    flex: 0.6,
+    paddingLeft: 5,
+    overflow: 'hidden'
+  },
+  userScoreContainer: {
+    flex: 0.4,
+    flexDirection: 'row'
   },
   userScore: {
-    flex: 0.25,
+    flex: 0.33,
     alignItems: 'center'
   },
   userScoreHeader: {

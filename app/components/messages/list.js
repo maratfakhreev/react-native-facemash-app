@@ -1,5 +1,6 @@
 let React = require('react-native');
 let Styles = require('../../styles/main/container');
+let Messages = require('../../models/messages');
 let Base = require('../base/base');
 let Message = require('../messages/item');
 let Loading = require('../ui/loading');
@@ -26,15 +27,14 @@ class MessagesList extends Base {
   }
 
   componentWillMount() {
-    fetch('http://localhost:8882/rest/messages')
-      .then(res => res.json())
-      .then(res => this.updateDataSource(res));
+    let messages = new Messages();
+    messages.fetch().then(messages => this.updateDataSource(messages));
   }
 
-  updateDataSource(data) {
+  updateDataSource(messages) {
     this.setState({
-      messages: data,
-      dataSource: this.state.dataSource.cloneWithRows(data)
+      messages,
+      dataSource: this.state.dataSource.cloneWithRows(messages)
     });
   }
 
