@@ -5,7 +5,7 @@
     headers:
       content-type: application/json
     file: mash.json
-    latency : 300
+    latency : 200
 
 - request:
     method: GET
@@ -14,4 +14,4 @@
     headers:
       content-type: application/json
     file: messages.json
-    latency : 400
+    latency : 200
